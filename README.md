@@ -1,10 +1,10 @@
 ## Threejs geometry modifiers
-This is a 3d Modifier library for three.js. A modifier is an function used to modify a 3d object.   
+This is a library of modifiers for three.js objects. A modifier is an function used to modify a 3d object.   
 
-It is the actionscript3.0 engine 'as3dmod' typescript transplant version.
+It is the typescript version of the actionscript3.0 engine [AS3Dmod](https://code.google.com/archive/p/as3dmod/).
 
 ## Case Demo
-* one
+* Bend
 
 #### more demo you can see [http://osbo.com/as3dmod/](http://osbo.com/as3dmod/)
 
@@ -22,12 +22,33 @@ It is the actionscript3.0 engine 'as3dmod' typescript transplant version.
 * Wheel
 * UserDefined - the custom modifier
 
+## Usage
+
+#### Development and Build
+
+```
+npm install
+//development mode
+npm start
+//production mode
+npm run build
+```
+#### Usage 
+```
+<script src="./js/modifier.js"></script>
+...
+var modifier = new ModifierStack(cube);
+var bend = new Bend(0, 0, 70);
+modifier.addModifier(bend);
+```
+
 ## Document
-about document
+You can find the documentation here.[https://code.google.com/archive/p/as3dmod/wikis/AS3Dmod_Tutorial.wiki](https://code.google.com/archive/p/as3dmod/wikis/AS3Dmod_Tutorial.wiki)
+and [http://osbo.com/as3dmod/bend/#instructions](http://osbo.com/as3dmod/bend/#instructions)
 
 ## Thank for
 
-* [as3dmod](http://code.google.com/p/as3dmod/) 
+Thanks [Bartek Drozdz](http://bartekdrozdz.com/) for creating this wonderful project.
 
 ## License
 This library is under the BSD License.

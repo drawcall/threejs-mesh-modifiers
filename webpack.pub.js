@@ -27,11 +27,11 @@ module.exports = {
         }]
     },
     
-    // plugins: [
-    //     new webpack.optimize.UglifyJsPlugin({
-    //         compress: {
-    //             warnings: false
-    //         }
-    //     })
-    // ]
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
+    ]
 };
