@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "sourceMap": true,
+        "allowJs": true,
+        "types": ["node"],
+        "noImplicitAny": true,
+        "removeComments": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

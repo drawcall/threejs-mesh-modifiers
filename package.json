@@ -1,0 +1,24 @@
+{
+  "name": "three.mod",
+  "version": "1.0.0",
+  "description": "three.js modify",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist & webpack --config webpack.pub.js --progress --colors",
+    "start": "webpack-dev-server --config webpack.dev.js --port 8888 --devtool eval-source-map --progress --colors --hot --inline --content-base ./test"
+  },
+  "keywords": [
+    "threejs"
+  ],
+  "author": "a-jie",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^7.0.5",
+    "raw-loader": "^0.5.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.0.10",
+    "typings": "^2.0.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
