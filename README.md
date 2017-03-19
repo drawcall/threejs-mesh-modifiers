@@ -52,7 +52,7 @@ and [http://osbo.com/as3dmod/bend/#instructions](http://osbo.com/as3dmod/bend/#i
 
 #### more demo you can see [http://osbo.com/as3dmod/](http://osbo.com/as3dmod/)
 
-## Thank for
+## Thanks
 
 Thanks [Bartek Drozdz](http://bartekdrozdz.com/) for creating this wonderful project.
 
