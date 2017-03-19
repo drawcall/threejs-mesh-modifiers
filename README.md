@@ -46,7 +46,7 @@ modifier.addModifier(bend);
 You can find the documentation here.[https://code.google.com/archive/p/as3dmod/wikis/AS3Dmod_Tutorial.wiki](https://code.google.com/archive/p/as3dmod/wikis/AS3Dmod_Tutorial.wiki)
 and [http://osbo.com/as3dmod/bend/#instructions](http://osbo.com/as3dmod/bend/#instructions)
 
-## Thank for
+## Thanks
 
 Thanks [Bartek Drozdz](http://bartekdrozdz.com/) for creating this wonderful project.
 

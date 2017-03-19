@@ -20,6 +20,13 @@ export class ModifierStack {
 		this.stack.push(mod);
 	}
 
+	public removeModifier(mod: IModifier): void {
+		let index = this.stack.indexOf(mod);
+		if (index > -1) {
+			this.stack.splice(index, 1);
+		}
+	}
+
 
 	public apply(): void {
 		this.baseMesh.resetGeometry();
@@ -35,6 +42,10 @@ export class ModifierStack {
 		this.apply();
 		this.baseMesh.collapseGeometry();
 		this.stack.length = 0;
+	}
+
+	public reset() {
+		this.baseMesh.resetGeometry();
 	}
 
 	public clear(): void {

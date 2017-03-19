@@ -167,7 +167,7 @@ export class Cloth extends Modifier implements IModifier {
 	private lockSet(reference: number, property: string, tolerance: number = 0, axes: number = 7): void {
 		let v: VerletVertex;
 		let i: number = this._vertices.length;
-
+		
 		while (v = <VerletVertex>this._vertices[--i]) {
 			if (Math.abs((<any>v)[property] - reference) <= tolerance) {
 				if (axes & ModConstant.X) v.mobileX = false;

@@ -13,8 +13,8 @@ import { EventEmitter } from '../util/EventEmitter';
 export class UserDefined extends Modifier implements IModifier {
 
 	private eventEmitter: EventEmitter;
-	public renderVector: (_: VertexProxy) => void;
-
+	public renderVector: (_: VertexProxy, i: number, l: number) => void;
+	
 	constructor() {
 		super();
 		this.eventEmitter = new EventEmitter();
@@ -26,7 +26,7 @@ export class UserDefined extends Modifier implements IModifier {
 
 		for (let i: number = 0; i < verticesLength; i++) {
 			let v: VertexProxy = <VertexProxy>vertices[i];
-			this.renderVector && this.renderVector(v);
+			this.renderVector && this.renderVector(v, i, verticesLength);
 		}
 
 		this.dispatchEvent("CHANGE");
