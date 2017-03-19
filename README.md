@@ -4,11 +4,9 @@ This is a library of modifiers for three.js objects. A modifier is an function u
 It is the typescript version of the actionscript3.0 engine [AS3Dmod](https://code.google.com/archive/p/as3dmod/).
 
 ## Case Demo
-* [Demo1](https://a-jie.github.io/threejs-geometry-modifiers/example/demo.html)  
-<img src="https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic1.png" width=300 height=300 href="https://a-jie.github.io/threejs-geometry-modifiers/example/demo.html"/>
+* [Demo1](https://a-jie.github.io/threejs-geometry-modifiers/example/demo.html) ![horse](https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic1.png)
 
-* [Demo2](https://a-jie.github.io/threejs-geometry-modifiers/example/demo2.html)  
-<img src="https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic2.png" width=300 height=300 href="https://a-jie.github.io/threejs-geometry-modifiers/example/demo2.html"/>
+* [Demo2](https://a-jie.github.io/threejs-geometry-modifiers/example/demo2.html) ![horse](https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic2.png)
 
 ## Modifiers
 
