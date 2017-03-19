@@ -6,7 +6,7 @@ It is the typescript version of the actionscript3.0 engine [AS3Dmod](https://cod
 ## Case Demo
 * [Demo1](https://a-jie.github.io/threejs-geometry-modifiers/example/demo.html) ![horse](https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic1.png)
 
-* [Demo2](https://a-jie.github.io/threejs-geometry-modifiers/example/demo2.html) ![horse](https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic2.png)
+* [Demo2](https://a-jie.github.io/threejs-geometry-modifiers/example/demo2.html) ![newspaper](https://a-jie.github.io/threejs-geometry-modifiers/example/images/pic2.png)
 
 ## Modifiers
 
