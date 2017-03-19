@@ -34,6 +34,7 @@ It is the typescript version of the actionscript3.0 engine [AS3Dmod](https://cod
 npm install
 //development mode
 npm start
+vist http://localhost:8888/
 //production mode
 npm run build
 ```
