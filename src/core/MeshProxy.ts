@@ -25,6 +25,8 @@ export class MeshProxy {
 	protected _height: number;
 	protected _depth: number;
 
+	public uvsAndColorUpdate: boolean = false;
+
 	constructor() {
 		this.vertices = new Array();
 		this.faces = new Array()

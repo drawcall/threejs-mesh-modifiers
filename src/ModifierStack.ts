@@ -14,6 +14,9 @@ export class ModifierStack {
 		this.stack = new Array();
 	}
 
+	public set uvsAndColorUpdate(update: boolean) {
+		this.baseMesh.uvsAndColorUpdate = update;
+	}
 
 	public addModifier(mod: IModifier): void {
 		mod.setModifiable(this.baseMesh);

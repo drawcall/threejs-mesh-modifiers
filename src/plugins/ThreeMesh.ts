@@ -12,6 +12,8 @@ export class ThreeMesh extends MeshProxy {
 
 	private mesh: IMesh;
 
+	public uvsAndColorUpdate: boolean = false;
+
 	public setMesh(mesh: any): void {
 		this.mesh = <IMesh>mesh;
 
@@ -46,9 +48,18 @@ export class ThreeMesh extends MeshProxy {
 		let geometry: IGeometry = this.mesh.geometry;
 		geometry.verticesNeedUpdate = true;
 		geometry.normalsNeedUpdate = true;
-		//geometry.colorsNeedUpdate = true;
-		//geometry.groupsNeedUpdate = true;
-		//geometry.uvsNeedUpdate = true;
+
+		if (this.uvsAndColorUpdate) {
+			try {
+				geometry.colorsNeedUpdate = true;
+				geometry.uvsNeedUpdate = true;
+				geometry.groupsNeedUpdate = true;
+				geometry.elementsNeedUpdate = true;
+				geometry.lineDistancesNeedUpdate = true;
+			} catch (e) {
+
+			}
+		}
 	}
 
 

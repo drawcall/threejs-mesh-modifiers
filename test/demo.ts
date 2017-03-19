@@ -101,6 +101,8 @@ class Main {
     public addModifier() {
         this.modifier = new ModifierStack(this.cube);
         //this.modifier = new ModifierStack(this.plane);
+        
+        //this.modifier.uvsAndColorUpdate = true;
 
         //bend
         let bend = new Bend(0, 0, 70);
