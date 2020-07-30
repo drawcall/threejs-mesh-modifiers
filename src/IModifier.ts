@@ -1,10 +1,9 @@
-import { MeshProxy } from './core/MeshProxy';
+import { MeshProxy } from "./core/MeshProxy";
 
 export interface IModifier {
+  setModifiable(mod: MeshProxy): void;
 
-	setModifiable(mod: MeshProxy): void;
-
-	apply(): void;
+  apply(): void;
 }
 
-export var IModifier: new (..._: any[]) => IModifier;
+export let IModifier: new (..._: any[]) => IModifier;

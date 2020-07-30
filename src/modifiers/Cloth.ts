@@ -1,269 +1,265 @@
-import { IModifier } from '../IModifier';
+import { IModifier } from "../IModifier";
 
-import { ModConstant } from '../util/ModConstant';
-import { Dictionary } from '../util/Dictionary';
-import { Matrix4 } from '../math/Matrix4';
-import { Vector3 } from '../math/Vector3';
+import { ModConstant } from "../util/ModConstant";
+import { Dictionary } from "../util/Dictionary";
+import { Matrix4 } from "../math/Matrix4";
+import { Vector3 } from "../math/Vector3";
 
-import { FaceProxy } from '../core/FaceProxy';
-import { MeshProxy } from '../core/MeshProxy';
-import { Modifier } from '../core/Modifier';
-import { VerletConnection } from '../core/verlet/VerletConnection';
-import { VerletVertex } from '../core/verlet/VerletVertex';
-import { VertexProxy } from '../core/VertexProxy';
-
+import { FaceProxy } from "../core/FaceProxy";
+import { MeshProxy } from "../core/MeshProxy";
+import { Modifier } from "../core/Modifier";
+import { VerletConnection } from "../core/verlet/VerletConnection";
+import { VerletVertex } from "../core/verlet/VerletVertex";
+import { VertexProxy } from "../core/VertexProxy";
 
 export class Cloth extends Modifier implements IModifier {
+  private _vertices: any[];
+  private _connections: any[];
 
-	private _vertices: any[];
-	private _connections: any[];
+  private _forceX: number = 0;
+  private _forceY: number = 0;
+  private _forceZ: number = 0;
 
-	private _forceX: number = 0;
-	private _forceY: number = 0;
-	private _forceZ: number = 0;
+  private _rigidity: number;
+  private _friction: number;
 
-	private _rigidity: number;
-	private _friction: number;
+  private _lookUp: Dictionary;
 
-	private _lookUp: Dictionary;
+  private _useBounds: boolean;
+  private _boundsMinX: number;
+  private _boundsMaxX: number;
+  private _boundsMinY: number;
+  private _boundsMaxY: number;
+  private _boundsMinZ: number;
+  private _boundsMaxZ: number;
 
-	private _useBounds: boolean;
-	private _boundsMinX: number;
-	private _boundsMaxX: number;
-	private _boundsMinY: number;
-	private _boundsMaxY: number;
-	private _boundsMinZ: number;
-	private _boundsMaxZ: number;
+  constructor(rigidity: number = 1, friction: number = 0) {
+    super();
 
-	constructor(rigidity: number = 1, friction: number = 0) {
-		super();
+    this._lookUp = new Dictionary();
+    this._rigidity = rigidity;
+    this.friction = friction;
+  }
 
-		this._lookUp = new Dictionary();
-		this._rigidity = rigidity;
-		this.friction = friction;
-	}
+  public setBounds(
+    minX: number = Number.NEGATIVE_INFINITY,
+    maxX: number = Number.POSITIVE_INFINITY,
+    minY: number = Number.NEGATIVE_INFINITY,
+    maxY: number = Number.POSITIVE_INFINITY,
+    minZ: number = Number.NEGATIVE_INFINITY,
+    maxZ: number = Number.POSITIVE_INFINITY
+  ): void {
+    this._useBounds = true;
+    this._boundsMinX = minX;
+    this._boundsMaxX = maxX;
+    this._boundsMinY = minY;
+    this._boundsMaxY = maxY;
+    this._boundsMinZ = minZ;
+    this._boundsMaxZ = maxZ;
+  }
 
-	public setBounds(
-		minX: number = Number.NEGATIVE_INFINITY,
-		maxX: number = Number.POSITIVE_INFINITY,
-		minY: number = Number.NEGATIVE_INFINITY,
-		maxY: number = Number.POSITIVE_INFINITY,
-		minZ: number = Number.NEGATIVE_INFINITY,
-		maxZ: number = Number.POSITIVE_INFINITY
-	): void {
-		this._useBounds = true;
-		this._boundsMinX = minX;
-		this._boundsMaxX = maxX;
-		this._boundsMinY = minY;
-		this._boundsMaxY = maxY;
-		this._boundsMinZ = minZ;
-		this._boundsMaxZ = maxZ;
-	}
+  public clearBounds(): void {
+    this._useBounds = false;
+  }
 
-	public clearBounds(): void {
-		this._useBounds = false;
-	}
+  public get verletVertices(): any[] {
+    return this._vertices;
+  }
 
-	public get verletVertices(): any[] {
-		return this._vertices;
-	}
+  public get friction(): number {
+    return (this._friction - 1) * 100;
+  }
 
-	public get friction(): number {
-		return (this._friction - 1) * 100;
-	}
+  public set friction(value: number) {
+    if (value < 0) value = 0;
 
-	public set friction(value: number) {
-		if (value < 0) value = 0;
+    this._friction = value / 100 + 1;
+  }
 
-		this._friction = value / 100 + 1;
-	}
+  public get rigidity(): number {
+    return this._rigidity;
+  }
 
-	public get rigidity(): number {
-		return this._rigidity;
-	}
+  public set rigidity(value: number) {
+    let half: number;
+    let i: number = this._connections.length;
+    let c: VerletConnection;
 
-	public set rigidity(value: number) {
-		let half: number;
-		let i: number = this._connections.length;
-		let c: VerletConnection;
+    if (value > 1) value = 1;
+    else if (value < 0) value = 0;
 
-		if (value > 1) value = 1;
-		else if (value < 0) value = 0;
+    this._rigidity = value;
+    half = value * 0.5;
 
-		this._rigidity = value;
-		half = value * .5;
+    while ((c = <VerletConnection>this._connections[--i])) {
+      c.rigidity = half;
+    }
+  }
 
-		while (c = <VerletConnection>this._connections[--i]) {
-			c.rigidity = half;
-		}
-	}
+  public setForce(x: number, y: number, z: number): void {
+    this._forceX = x;
+    this._forceY = y;
+    this._forceZ = z;
+  }
 
-	public setForce(x: number, y: number, z: number): void {
-		this._forceX = x;
-		this._forceY = y;
-		this._forceZ = z;
-	}
+  public get forceX(): number {
+    return this._forceX;
+  }
 
-	public get forceX(): number {
-		return this._forceX;
-	}
+  public set forceX(value: number) {
+    this._forceX = value;
+  }
 
-	public set forceX(value: number) {
-		this._forceX = value;
-	}
+  public get forceY(): number {
+    return this._forceY;
+  }
 
-	public get forceY(): number {
-		return this._forceY;
-	}
+  public set forceY(value: number) {
+    this._forceY = value;
+  }
 
-	public set forceY(value: number) {
-		this._forceY = value;
-	}
+  public get forceZ(): number {
+    return this._forceZ;
+  }
 
-	public get forceZ(): number {
-		return this._forceZ;
-	}
+  public set forceZ(value: number) {
+    this._forceZ = value;
+  }
 
-	public set forceZ(value: number) {
-		this._forceZ = value;
-	}
+  public unlockAll(): void {
+    let v: VerletVertex;
+    let i: number = this._vertices.length;
 
-	public unlockAll(): void {
-		let v: VerletVertex;
-		let i: number = this._vertices.length;
+    while ((v = <VerletVertex>this._vertices[--i])) {
+      v.mobileX = true;
+      v.mobileY = true;
+      v.mobileZ = true;
+    }
+  }
 
-		while (v = <VerletVertex>this._vertices[--i]) {
-			v.mobileX = true;
-			v.mobileY = true;
-			v.mobileZ = true;
-		}
-	}
+  public lockXMin(tolerance: number = 0, axes: number = 7): void {
+    this.lockSet(this.mod.minX, "x", tolerance, axes);
+  }
 
-	public lockXMin(tolerance: number = 0, axes: number = 7): void {
-		this.lockSet(this.mod.minX, "x", tolerance, axes);
-	}
+  public lockXMax(tolerance: number = 0, axes: number = 7): void {
+    this.lockSet(this.mod.maxX, "x", tolerance, axes);
+  }
 
-	public lockXMax(tolerance: number = 0, axes: number = 7): void {
-		this.lockSet(this.mod.maxX, "x", tolerance, axes);
-	}
+  public lockYMin(tolerance: number = 0, axes: number = 7): void {
+    this.lockSet(this.mod.minY, "y", tolerance, axes);
+  }
 
-	public lockYMin(tolerance: number = 0, axes: number = 7): void {
-		this.lockSet(this.mod.minY, "y", tolerance, axes);
-	}
+  public lockYMax(tolerance: number = 0, axes: number = 7): void {
+    this.lockSet(this.mod.maxY, "y", tolerance, axes);
+  }
 
+  public lockZMin(tolerance: number = 0, axes: number = 7): void {
+    this.lockSet(this.mod.minZ, "z", tolerance, axes);
+  }
 
-	public lockYMax(tolerance: number = 0, axes: number = 7): void {
-		this.lockSet(this.mod.maxY, "y", tolerance, axes);
-	}
+  public lockZMax(tolerance: number = 0, axes: number = 7): void {
+    this.lockSet(this.mod.maxZ, "z", tolerance, axes);
+  }
 
-	public lockZMin(tolerance: number = 0, axes: number = 7): void {
-		this.lockSet(this.mod.minZ, "z", tolerance, axes);
-	}
+  private lockSet(reference: number, property: string, tolerance: number = 0, axes: number = 7): void {
+    let v: VerletVertex;
+    let i: number = this._vertices.length;
 
-	public lockZMax(tolerance: number = 0, axes: number = 7): void {
-		this.lockSet(this.mod.maxZ, "z", tolerance, axes);
-	}
+    while ((v = <VerletVertex>this._vertices[--i])) {
+      if (Math.abs((<any>v)[property] - reference) <= tolerance) {
+        if (axes & ModConstant.X) v.mobileX = false;
+        if (axes & ModConstant.Y) v.mobileY = false;
+        if (axes & ModConstant.Z) v.mobileZ = false;
+      }
+    }
+  }
 
-	private lockSet(reference: number, property: string, tolerance: number = 0, axes: number = 7): void {
-		let v: VerletVertex;
-		let i: number = this._vertices.length;
-		
-		while (v = <VerletVertex>this._vertices[--i]) {
-			if (Math.abs((<any>v)[property] - reference) <= tolerance) {
-				if (axes & ModConstant.X) v.mobileX = false;
-				if (axes & ModConstant.Y) v.mobileY = false;
-				if (axes & ModConstant.Z) v.mobileZ = false;
-			}
-		}
-	}
+  public setModifiable(mod: MeshProxy): void {
+    super.setModifiable(mod);
 
-	public setModifiable(mod: MeshProxy): void {
-		super.setModifiable(mod);
+    this.initVerletVertices();
+    this.initVerletConnections();
+    this.rigidity = this._rigidity;
+  }
 
-		this.initVerletVertices();
-		this.initVerletConnections();
-		this.rigidity = this._rigidity;
-	}
+  public apply(): void {
+    let i: number;
+    let c: VerletConnection;
+    let v: VerletVertex;
 
-	public apply(): void {
-		let i: number;
-		let c: VerletConnection;
-		let v: VerletVertex;
+    i = this._connections.length;
 
-		i = this._connections.length;
+    while ((c = <VerletConnection>this._connections[--i])) {
+      c.update();
+    }
 
-		while (c = <VerletConnection>this._connections[--i]) {
-			c.update();
-		}
+    i = this._vertices.length;
 
-		i = this._vertices.length;
+    while ((v = <VerletVertex>this._vertices[--i])) {
+      if (v.mobileX) v.x += this._forceX;
+      if (v.mobileY) v.y += this._forceY;
+      if (v.mobileZ) v.z += this._forceZ;
 
-		while (v = <VerletVertex>this._vertices[--i]) {
-			if (v.mobileX) v.x += this._forceX;
-			if (v.mobileY) v.y += this._forceY;
-			if (v.mobileZ) v.z += this._forceZ;
+      v.velocityX /= this._friction;
+      v.velocityY /= this._friction;
+      v.velocityZ /= this._friction;
 
-			v.velocityX /= this._friction;
-			v.velocityY /= this._friction;
-			v.velocityZ /= this._friction;
+      if (this._useBounds) {
+        if (v.x < this._boundsMinX) v.x = this._boundsMinX;
+        else if (v.x > this._boundsMaxX) v.x = this._boundsMaxX;
+        if (v.y < this._boundsMinY) v.y = this._boundsMinY;
+        else if (v.y > this._boundsMaxY) v.y = this._boundsMaxY;
+        if (v.z < this._boundsMinZ) v.z = this._boundsMinZ;
+        else if (v.z > this._boundsMaxZ) v.z = this._boundsMaxZ;
+      }
 
-			if (this._useBounds) {
-				if (v.x < this._boundsMinX) v.x = this._boundsMinX;
-				else if (v.x > this._boundsMaxX) v.x = this._boundsMaxX;
-				if (v.y < this._boundsMinY) v.y = this._boundsMinY;
-				else if (v.y > this._boundsMaxY) v.y = this._boundsMaxY;
-				if (v.z < this._boundsMinZ) v.z = this._boundsMinZ;
-				else if (v.z > this._boundsMaxZ) v.z = this._boundsMaxZ;
-			}
+      v.update();
+    }
+  }
 
-			v.update();
-		}
-	}
+  private initVerletVertices(): void {
+    let vs: any[] = this.mod.getVertices();
+    let vc: number = vs.length;
+    let v: VertexProxy;
+    let vv: VerletVertex;
 
-	private initVerletVertices(): void {
-		let vs: any[] = this.mod.getVertices();
-		let vc: number = vs.length;
-		let v: VertexProxy;
-		let vv: VerletVertex;
+    this._vertices = [];
 
-		this._vertices = [];
+    while ((v = <VertexProxy>vs[--vc])) {
+      vv = new VerletVertex(v);
+      this._vertices.push(vv);
+      this._lookUp.setVal(v, vv);
+    }
+  }
 
-		while (v = <VertexProxy>vs[--vc]) {
-			vv = new VerletVertex(v);
-			this._vertices.push(vv);
-			this._lookUp.setVal(v, vv);
-		}
-	}
+  private initVerletConnections(): void {
+    let ts: any[] = this.mod.getFaces();
+    let t: FaceProxy;
+    let tc: number = ts.length;
+    let faceVertices: any[];
+    let numVertices: number;
 
-	private initVerletConnections(): void {
-		let ts: any[] = this.mod.getFaces();
-		let t: FaceProxy;
-		let tc: number = ts.length;
-		let faceVertices: any[];
-		let numVertices: number;
+    this._connections = [];
 
-		this._connections = [];
+    for (let i: number = 0; i < tc; i++) {
+      t = <FaceProxy>ts[i];
+      faceVertices = t.vertices;
+      numVertices = faceVertices.length;
 
-		for (let i: number = 0; i < tc; i++) {
-			t = <FaceProxy>ts[i];
-			faceVertices = t.vertices;
-			numVertices = faceVertices.length;
+      for (let j: number = 0; j < numVertices - 1; j++) {
+        this.createConnection(this._lookUp.getVal(faceVertices[j]), this._lookUp.getVal(faceVertices[j + 1]));
 
-			for (let j: number = 0; j < numVertices - 1; j++) {
-				this.createConnection(this._lookUp.getVal(faceVertices[j]), this._lookUp.getVal(faceVertices[j + 1]));
+        if (j > 1) this.createConnection(this._lookUp.getVal(faceVertices[0]), this._lookUp.getVal(faceVertices[j]));
+      }
 
-				if (j > 1)
-					this.createConnection(this._lookUp.getVal(faceVertices[0]), this._lookUp.getVal(faceVertices[j]));
-			}
+      this.createConnection(this._lookUp.getVal(faceVertices[numVertices - 1]), this._lookUp.getVal(faceVertices[0]));
+    }
+  }
 
-			this.createConnection(this._lookUp.getVal(faceVertices[numVertices - 1]), this._lookUp.getVal(faceVertices[0]));
-		}
-	}
+  private createConnection(v1: VerletVertex, v2: VerletVertex): void {
+    let dist: number = v1.distanceTo(v2);
+    let connection: VerletConnection = new VerletConnection(v1, v2, dist, this._rigidity);
 
-	private createConnection(v1: VerletVertex, v2: VerletVertex): void {
-		let dist: number = v1.distanceTo(v2);
-		let connection: VerletConnection = new VerletConnection(v1, v2, dist, this._rigidity);
-
-		this._connections.push(connection);
-	}
+    this._connections.push(connection);
+  }
 }

@@ -1,14 +1,13 @@
-import { MeshProxy } from './MeshProxy';
+import { MeshProxy } from "./MeshProxy";
 
 export class Modifier {
+  protected mod: MeshProxy;
 
-	protected mod: MeshProxy;
+  public setModifiable(mod: MeshProxy): void {
+    this.mod = mod;
+  }
 
-	public setModifiable(mod: MeshProxy): void {
-		this.mod = mod;
-	}
-
-	public getVertices(): any[] {
-		return this.mod.getVertices();
-	}
+  public getVertices(): any[] {
+    return this.mod.getVertices();
+  }
 }

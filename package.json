@@ -1,24 +1,32 @@
 {
-  "name": "three.mod",
-  "version": "2.1.0",
-  "description": "three.js modify",
-  "main": "src/index.ts",
+  "name": "three.modifiers",
+  "version": "2.2.2",
+  "description": "This is a library of modifiers for three.js objects. A modifier is an function used to modify a 3d object.",
+  "main": "dist/modifiers.min.js",
+  "types": "src/index.ts",
   "scripts": {
+    "dev": "serve ./",
     "build": "rm -rf dist & webpack --config webpack.pub.js --progress --colors",
-    "start": "webpack-dev-server --config webpack.dev.js --port 8888 --devtool eval-source-map --progress --colors --hot --inline --content-base ./test"
+    "demo": "webpack-dev-server --config webpack.dev.js --port 8888 --devtool eval-source-map --progress --colors --hot --inline --content-base ./test"
   },
   "keywords": [
-    "threejs"
+    "threejs",
+    "modifiers"
   ],
-  "author": "a-jie",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drawcall/threejs-geometry-modifiers.git"
+  },
+  "author": "drawcall",
   "license": "BSD",
   "devDependencies": {
     "@types/node": "^7.0.5",
     "raw-loader": "^0.5.1",
+    "serve": "^11.3.2",
     "ts-loader": "^2.0.0",
     "typescript": "^2.0.10",
     "typings": "^2.0.0",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^3.1.11"
   }
 }
