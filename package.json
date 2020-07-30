@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/drawcall/threejs-geometry-modifiers.git"
+    "url": "git+https://github.com/drawcall/threejs-mesh-modifiers.git"
   },
   "author": "drawcall",
   "license": "BSD",
