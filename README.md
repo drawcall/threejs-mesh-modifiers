@@ -11,10 +11,10 @@ npm install three three.modifiers --save
 ## Demo
 
 <p align="center">
-  <a href="https://codesandbox.io/s/three-mesh-modifiers-website-b55p6?file=/src/components/Photo.js"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/03-min.gif?raw=true" /></a>
-  <a href="https://codesandbox.io/s/three-mesh-modifiers-demo2-61b7o?file=/src/components/Modifier.js"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/04-min.gif?raw=true" /></a>
-  <a href="https://drawcall.github.io/threejs-mesh-modifiers/example/demo.html"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/01-min.gif?raw=true" /></a>
-  <a href="https://drawcall.github.io/threejs-mesh-modifiers/example/demo2.html"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/02-min.gif?raw=true" /></a>
+  <a href="https://codesandbox.io/s/three-mesh-modifiers-website-b55p6?file=/src/components/Photo.js"><img width="412" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/03-min.gif?raw=true" /></a>
+  <a href="https://codesandbox.io/s/three-mesh-modifiers-demo2-61b7o?file=/src/components/Modifier.js"><img width="412" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/04-min.gif?raw=true" /></a>
+  <a href="https://drawcall.github.io/threejs-mesh-modifiers/example/demo.html"><img width="412" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/01-min.gif?raw=true" /></a>
+  <a href="https://drawcall.github.io/threejs-mesh-modifiers/example/demo2.html"><img width="412" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/02-min.gif?raw=true" /></a>
 </p>
 <p align="middle">
   <i>These demos are real, you can click them! They contain the full code, too.</i>
