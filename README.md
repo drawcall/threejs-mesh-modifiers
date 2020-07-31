@@ -8,15 +8,17 @@ It is the typescript version of the [ActionScript](https://en.wikipedia.org/wiki
 npm install three three.modifiers --save
 ```
 
-## Case Demo
+## Demo
 
-[Demo1](https://drawcall.github.io/threejs-mesh-modifiers/example/demo.html)
-
-![horse](https://drawcall.github.io/threejs-mesh-modifiers/example/images/pic1.png)
-
-[Demo2](https://drawcall.github.io/threejs-mesh-modifiers/example/demo2.html)
-
-![newspaper](https://drawcall.github.io/threejs-mesh-modifiers/example/images/pic2.png)
+<p align="center">
+  <a href="https://codesandbox.io/s/three-mesh-modifiers-website-b55p6?file=/src/components/Photo.js"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/03-min.gif?raw=true" /></a>
+  <a href="https://codesandbox.io/s/three-mesh-modifiers-demo2-61b7o?file=/src/components/Modifier.js"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/04-min.gif?raw=true" /></a>
+  <a href="https://drawcall.github.io/threejs-mesh-modifiers/example/demo.html"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/01-min.gif?raw=true" /></a>
+  <a href="https://drawcall.github.io/threejs-mesh-modifiers/example/demo2.html"><img width="274" src="https://github.com/drawcall/threejs-mesh-modifiers/blob/master/example/images/thumb/02-min.gif?raw=true" /></a>
+</p>
+<p align="middle">
+  <i>These demos are real, you can click them! They contain the full code, too.</i>
+</p>
 
 ## Modifiers
 
@@ -49,7 +51,18 @@ Note you must also have `three` installed via npm.
 
 ```javascript
 import * as THREE from "three";
-import { ModifierStack, Bend } from "three.modifiers";
+import {
+  ModifierStack,
+  Twist,
+  Noise,
+  Cloth,
+  UserDefined,
+  Taper,
+  Break,
+  Bloat,
+  Vector3,
+  ModConstant
+} from "three.modifiers";
 ```
 
 ## Usage
