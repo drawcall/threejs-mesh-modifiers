@@ -1,6 +1,6 @@
 ## Threejs mesh modifiers
 
-A Three.js mesh morph modifier, including nearly 10 modifiers, such as Bend, Bloat, Noise, Skew and Taper, etc. It is very lightweight and simple to use, using it can give you unexpected results.
+A Three.js mesh morph modifier, including nearly ten modifiers, such as Bend, Bloat, Noise, Skew and Taper, etc. It is very lightweight and simple to use, using it can give you unexpected results.
 
 ```shell
 npm install three three.modifiers --save
