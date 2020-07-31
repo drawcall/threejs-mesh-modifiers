@@ -1,8 +1,6 @@
 ## Threejs mesh modifiers
 
-This is a library of modifiers for three.js objects. A modifier is an function used to modify a 3d object.
-
-It is the typescript version of the [ActionScript](https://en.wikipedia.org/wiki/ActionScript) engine [AS3Dmod](https://code.google.com/archive/p/as3dmod/).
+A Three.js mesh morph modifier, including nearly 10 modifiers, such as Bend, Bloat, Noise, Skew and Taper, etc. It is very lightweight and simple to use, using it can give you unexpected results.
 
 ```shell
 npm install three three.modifiers --save
@@ -98,7 +96,7 @@ function animate() {
 
 ## Document
 
-You can find the documentation here.
+It is the typescript version of the [ActionScript](https://en.wikipedia.org/wiki/ActionScript) engine [AS3Dmod](https://code.google.com/archive/p/as3dmod/). You can find the documentation here.
 
 - [https://code.google.com/archive/p/as3dmod/wikis/AS3Dmod_Tutorial.wiki](https://code.google.com/archive/p/as3dmod/wikis/AS3Dmod_Tutorial.wiki)
 - [http://osbo.com/as3dmod/bend/#instructions](http://osbo.com/as3dmod/bend/#instructions)
