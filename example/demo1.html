@@ -22,10 +22,11 @@
     <script src="./lib/TweenMax.min.js"></script>
     <script src="./lib/OrbitControls.js"></script>
     <script src="./lib/dat.gui.min.js"></script>
+    <script src="./lib/Stats.min.js"></script>
     <script src="../dist/modifiers.min.js"></script>
     <script src="./js/tmm.js"></script>
     <script>
-      var camera, scene, renderer, clock;
+      var camera, scene, renderer, clock,stats;
       var modifier, mesh;
 
       init();
@@ -35,6 +36,7 @@
         initMesh();
         initControls();
         initGUI();
+        initStats();
         animate();
       }
 
@@ -62,13 +64,13 @@
         var ambient = new THREE.AmbientLight(0x444444);
         scene.add(ambient);
 
-        var light1 = new THREE.DirectionalLight( 0xefefff, 1.5 );
-				light1.position.set( 1, 1, 1 ).normalize();
-				scene.add( light1 );
+        var light1 = new THREE.DirectionalLight(0xefefff, 1.5);
+        light1.position.set(1, 1, 1).normalize();
+        scene.add(light1);
 
-				var light2 = new THREE.DirectionalLight( 0xffefef, 1.5 );
-				light2.position.set( - 1, - 1, - 1 ).normalize();
-				scene.add( light2 );
+        var light2 = new THREE.DirectionalLight(0xffefef, 1.5);
+        light2.position.set(-1, -1, -1).normalize();
+        scene.add(light2);
       }
 
       function initControls() {
@@ -102,12 +104,19 @@
         });
       }
 
+      function initStats() {
+        stats = new Stats();
+        stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(stats.dom);
+      }
+
       function animate() {
         requestAnimationFrame(animate);
 
         var delta = clock.getDelta();
         renderer.render(scene, camera);
         modifier && modifier.apply();
+        stats.update();
       }
 
       function onWindowResize() {

@@ -144,19 +144,19 @@ export class ThreeMesh extends MeshProxy {
     let length = this.vertices.length;
     let fromIds;
     let v: ThreeVertex;
-    let i, j;
+    let i, j, index;
 
     for (i = 0; i < length; i++) {
       v = this.vertices[i];
       fromIds = this.verticesMap.getFromByTo(i);
+      
       for (j = 0; j < fromIds.length; j++) {
-        let index = fromIds[j];
+        index = fromIds[j];
         position.setX(index, v.x);
         position.setY(index, v.y);
         position.setZ(index, v.z);
       }
     }
-
     position.needsUpdate = true;
   }
 

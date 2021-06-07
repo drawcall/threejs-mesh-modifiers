@@ -49,11 +49,8 @@ export class TMap {
   }
 
   getItemByTo(to: number): Item {
-    for (let key in this._map) {
-      let item = this._map[key];
-      if (item.to === to) return item;
-    }
-    return null;
+    let key: string = `t_${to}`;
+    return this._map[key];
   }
 
   public destroy(): void {
