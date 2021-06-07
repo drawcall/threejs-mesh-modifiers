@@ -10,4 +10,8 @@ export class Modifier {
   public getVertices(): any[] {
     return this.mod.getVertices();
   }
+
+  public destroy(): void {
+    this.mod = null;
+  }
 }

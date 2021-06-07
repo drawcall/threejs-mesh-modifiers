@@ -5,7 +5,7 @@ export class Vector3 {
 
   public static ZERO: Vector3 = new Vector3(0, 0, 0);
 
-  constructor(x: number, y: number, z: number) {
+  constructor(x: number = 0, y: number = 0, z: number = 0) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -70,6 +70,13 @@ export class Vector3 {
     this.x *= m;
     this.y *= m;
     this.z *= m;
+  }
+
+  public fromBufferAttribute(attribute: any, index: number): Vector3 {
+    this.x = attribute.getX(index);
+    this.y = attribute.getY(index);
+    this.z = attribute.getZ(index);
+    return this;
   }
 
   public toString(): string {

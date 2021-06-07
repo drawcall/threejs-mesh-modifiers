@@ -63,4 +63,11 @@ export class XMath {
   public static uceil(val: number): number {
     return val < 0 ? Math.floor(val) : Math.ceil(val);
   }
+
+  public static mappedKey(v: { x: number; y: number; z: number }): string {
+    let precisionPoints = 4; // number of decimal points, e.g. 4 for epsilon of 0.0001
+    let precision = Math.pow(10, precisionPoints);
+    let key = Math.round(v.x * precision) + "_" + Math.round(v.y * precision) + "_" + Math.round(v.z * precision);
+    return key;
+  }
 }

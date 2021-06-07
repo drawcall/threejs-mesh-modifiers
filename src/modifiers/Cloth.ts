@@ -23,7 +23,7 @@ export class Cloth extends Modifier implements IModifier {
   private _rigidity: number;
   private _friction: number;
 
-  private _lookUp: Dictionary;
+  private _dic: Dictionary;
 
   private _useBounds: boolean;
   private _boundsMinX: number;
@@ -36,7 +36,7 @@ export class Cloth extends Modifier implements IModifier {
   constructor(rigidity: number = 1, friction: number = 0) {
     super();
 
-    this._lookUp = new Dictionary();
+    this._dic = new Dictionary();
     this._rigidity = rigidity;
     this.friction = friction;
   }
@@ -218,45 +218,45 @@ export class Cloth extends Modifier implements IModifier {
   }
 
   private initVerletVertices(): void {
-    let vs: any[] = this.mod.getVertices();
-    let vc: number = vs.length;
-    let v: VertexProxy;
-    let vv: VerletVertex;
+    let vertices: any[] = this.mod.getVertices();
+    let length: number = vertices.length;
+    let verlet: VertexProxy;
 
     this._vertices = [];
 
-    while ((v = <VertexProxy>vs[--vc])) {
-      vv = new VerletVertex(v);
-      this._vertices.push(vv);
-      this._lookUp.setVal(v, vv);
+    while ((verlet = <VertexProxy>vertices[--length])) {
+      let verletVertex = new VerletVertex(verlet);
+      this._vertices.push(verletVertex);
+      this._dic.setVal(verlet, verletVertex);
     }
   }
 
   private initVerletConnections(): void {
-    let ts: any[] = this.mod.getFaces();
-    let t: FaceProxy;
-    let tc: number = ts.length;
+    let faces: any[] = this.mod.getFaces();
+    let face: FaceProxy;
+    let length: number = faces.length;
     let faceVertices: any[];
     let numVertices: number;
-
     this._connections = [];
 
-    for (let i: number = 0; i < tc; i++) {
-      t = <FaceProxy>ts[i];
-      faceVertices = t.vertices;
+    for (let i: number = 0; i < length; i++) {
+      face = <FaceProxy>faces[i];
+      faceVertices = face.vertices;
       numVertices = faceVertices.length;
 
       for (let j: number = 0; j < numVertices - 1; j++) {
-        this.createConnection(this._lookUp.getVal(faceVertices[j]), this._lookUp.getVal(faceVertices[j + 1]));
-
-        if (j > 1) this.createConnection(this._lookUp.getVal(faceVertices[0]), this._lookUp.getVal(faceVertices[j]));
+        this.createConnection(this._dic.getVal(faceVertices[j]), this._dic.getVal(faceVertices[j + 1]));
+        if (j > 1) this.createConnection(this._dic.getVal(faceVertices[0]), this._dic.getVal(faceVertices[j]));
       }
 
-      this.createConnection(this._lookUp.getVal(faceVertices[numVertices - 1]), this._lookUp.getVal(faceVertices[0]));
+      this.createConnection(this._dic.getVal(faceVertices[numVertices - 1]), this._dic.getVal(faceVertices[0]));
     }
   }
 
   private createConnection(v1: VerletVertex, v2: VerletVertex): void {
+    if (!v1 || !v2) {
+      return;
+    }
     let dist: number = v1.distanceTo(v2);
     let connection: VerletConnection = new VerletConnection(v1, v2, dist, this._rigidity);
 

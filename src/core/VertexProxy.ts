@@ -10,6 +10,8 @@ export class VertexProxy {
   protected oy: number;
   protected oz: number;
 
+  public id: string = "";
+
   constructor() {}
 
   public setVertex(vertex: any): void {}
@@ -145,5 +147,9 @@ export class VertexProxy {
 
   public get ratioVector(): Vector3 {
     return new Vector3(this.ratioX, this.ratioY, this.ratioZ);
+  }
+
+  public toString(): string {
+    return `Vertex id:${this.id} xyz:${this.x} ${this.y} ${this.z}`;
   }
 }

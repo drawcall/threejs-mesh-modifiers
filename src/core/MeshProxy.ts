@@ -23,10 +23,12 @@ export class MeshProxy {
   protected _depth: number;
 
   public uvsAndColorUpdate: boolean = false;
+  public boundUpdate: boolean = false;
+  public indexUpdate: boolean = false;
 
   constructor() {
-    this.vertices = new Array();
-    this.faces = new Array();
+    this.vertices = [];
+    this.faces = [];
   }
 
   public setMesh(mesh: any): void {}
@@ -211,4 +213,9 @@ export class MeshProxy {
   }
 
   public postApply(): void {}
+
+  public destroy(): void {
+    this.vertices.length = 0;
+    this.faces.length = 0;
+  }
 }

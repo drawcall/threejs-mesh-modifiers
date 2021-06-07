@@ -2,6 +2,8 @@
 
 A Three.js mesh morph modifier, including nearly ten modifiers, such as Bend, Bloat, Noise, Skew and Taper, etc. It is very lightweight and simple to use, using it can give you unexpected results.
 
+> Note: The latest version uses BufferGeometry to calculate, because three.js [removes Geometry](https://discourse.threejs.org/t/three-geometry-will-be-removed-from-core-with-r125/22401/2).
+
 ```shell
 npm install three three.modifiers --save
 ```

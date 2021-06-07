@@ -3,6 +3,7 @@ import { VertexProxy } from "../core/VertexProxy";
 
 export class ThreeVertex extends VertexProxy {
   private vertor: IVector3;
+  public only: boolean = false;
 
   constructor() {
     super();
@@ -37,5 +38,10 @@ export class ThreeVertex extends VertexProxy {
 
   public set z(v: number) {
     this.vertor.z = v;
+  }
+
+  public toString(): string {
+    let str = super.toString();
+    return `${str} only:${this.only}`;
   }
 }

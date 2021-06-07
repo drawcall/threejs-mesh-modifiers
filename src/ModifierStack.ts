@@ -1,6 +1,6 @@
 import { IModifier } from "./IModifier";
 import { MeshProxy } from "./core/MeshProxy";
-import { ThreeMesh } from "./plugins/ThreeMesh";
+import { ThreeMesh } from "./three/ThreeMesh";
 
 export class ModifierStack {
   private baseMesh: MeshProxy;
@@ -10,7 +10,15 @@ export class ModifierStack {
     this.baseMesh = new ThreeMesh();
     this.baseMesh.setMesh(mesh);
     this.baseMesh.analyzeGeometry();
-    this.stack = new Array();
+    this.stack = [];
+  }
+
+  public set indexUpdate(update: boolean) {
+    this.baseMesh.indexUpdate = update;
+  }
+
+  public set boundUpdate(update: boolean) {
+    this.baseMesh.boundUpdate = update;
   }
 
   public set uvsAndColorUpdate(update: boolean) {
@@ -51,5 +59,13 @@ export class ModifierStack {
 
   public clear(): void {
     this.stack.length = 0;
+  }
+
+  public destroy(): void {
+    this.baseMesh.destroy();
+    for (let i: number = 0; i < this.stack.length; i++) {
+      (<IModifier>this.stack[i]).destroy();
+    }
+    this.clear();
   }
 }
