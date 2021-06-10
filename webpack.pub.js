@@ -1,5 +1,6 @@
-var webpack = require("webpack");
 var path = require("path");
+var webpack = require("webpack");
+var package = require("./package.json");
 
 module.exports = {
   entry: {
@@ -34,6 +35,9 @@ module.exports = {
       compress: {
         warnings: false
       }
+    }),
+    new webpack.BannerPlugin({
+      banner: `${package.name}-v${package.version}`
     })
   ]
 };
