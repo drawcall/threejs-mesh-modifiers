@@ -1,6 +1,6 @@
 {
   "name": "three.modifiers",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "This is a library of modifiers for three.js objects. A modifier is an function used to modify a 3d object.",
   "main": "dist/modifiers.min.js",
   "types": "src/index.ts",

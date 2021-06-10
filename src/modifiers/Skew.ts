@@ -1,8 +1,6 @@
-import { IModifier } from "../IModifier";
+import { TMath } from "../math/TMath";
+import { IModifier } from "../core/IModifier";
 import { ModConstant } from "../util/ModConstant";
-
-import { XMath } from "../math/XMath";
-
 import { MeshProxy } from "../core/MeshProxy";
 import { Modifier } from "../core/Modifier";
 import { VertexProxy } from "../core/VertexProxy";
@@ -46,7 +44,7 @@ export class Skew extends Modifier implements IModifier {
 
       let f: number = this._falloff + dr * (1 - this._falloff);
 
-      let p: number = Math.pow(Math.abs(r), this._power) * XMath.sign(r, 1);
+      let p: number = Math.pow(Math.abs(r), this._power) * TMath.sign(r, 1);
       let vl: number = v.getValue(this.displaceAxis) + this.force * p * f;
 
       v.setValue(this.displaceAxis, vl);
@@ -87,7 +85,7 @@ export class Skew extends Modifier implements IModifier {
   }
 
   public set offset(o: number) {
-    this._offset = XMath.trim(0, 1, o);
+    this._offset = TMath.trim(0, 1, o);
   }
 
   public get power(): number {
@@ -103,7 +101,7 @@ export class Skew extends Modifier implements IModifier {
   }
 
   public set falloff(falloff: number) {
-    this._falloff = XMath.trim(0, 1, falloff);
+    this._falloff = TMath.trim(0, 1, falloff);
   }
 
   public get oneSide(): boolean {

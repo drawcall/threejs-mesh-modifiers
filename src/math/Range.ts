@@ -1,4 +1,4 @@
-import { XMath } from "./XMath";
+import { TMath } from "./TMath";
 
 export class Range {
   private _start: number;
@@ -31,15 +31,15 @@ export class Range {
   }
 
   public normalize(n: number): number {
-    return XMath.normalize(this._start, this._end, n);
+    return TMath.normalize(this._start, this._end, n);
   }
 
   public toRange(n: number): number {
-    return XMath.toRange(this._start, this._end, n);
+    return TMath.toRange(this._start, this._end, n);
   }
 
   public trim(n: number): number {
-    return XMath.trim(this._start, this._end, n);
+    return TMath.trim(this._start, this._end, n);
   }
 
   public interpolate(n: number, r: Range): number {

@@ -1,8 +1,8 @@
-import { IModifier } from "../IModifier";
+import { IModifier } from "../core/IModifier";
 import { ModConstant } from "../util/ModConstant";
 
-import { MeshProxy } from "../core/MeshProxy";
 import { Modifier } from "../core/Modifier";
+import { MeshProxy } from "../core/MeshProxy";
 import { VertexProxy } from "../core/VertexProxy";
 
 import { Vector2 } from "../math/Vector2";

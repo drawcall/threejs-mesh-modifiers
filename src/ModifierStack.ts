@@ -1,4 +1,4 @@
-import { IModifier } from "./IModifier";
+import { IModifier } from "./core/IModifier";
 import { MeshProxy } from "./core/MeshProxy";
 import { ThreeMesh } from "./three/ThreeMesh";
 

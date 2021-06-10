@@ -4,7 +4,7 @@ export * from "./math/Phase";
 export * from "./math/Range";
 export * from "./math/Vector2";
 export * from "./math/Vector3";
-export * from "./math/XMath";
+export * from "./math/TMath";
 
 export * from "./util/ModConstant";
 

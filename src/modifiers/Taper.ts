@@ -1,12 +1,8 @@
-import { IModifier } from "../IModifier";
-
+import { IModifier } from "../core/IModifier";
 import { Matrix4 } from "../math/Matrix4";
 import { Vector3 } from "../math/Vector3";
-
-import { MeshProxy } from "../core/MeshProxy";
 import { Modifier } from "../core/Modifier";
 import { VertexProxy } from "../core/VertexProxy";
-import { Log } from "../util/Log";
 
 export class Taper extends Modifier implements IModifier {
   private frc: number;

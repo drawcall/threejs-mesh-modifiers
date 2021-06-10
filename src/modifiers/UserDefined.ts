@@ -1,12 +1,6 @@
-﻿import { IModifier } from "../IModifier";
-
-import { Matrix4 } from "../math/Matrix4";
-import { Vector3 } from "../math/Vector3";
-
-import { MeshProxy } from "../core/MeshProxy";
+﻿import { IModifier } from "../core/IModifier";
 import { Modifier } from "../core/Modifier";
 import { VertexProxy } from "../core/VertexProxy";
-
 import { EventEmitter } from "../util/EventEmitter";
 
 export class UserDefined extends Modifier implements IModifier {

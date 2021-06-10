@@ -4,25 +4,27 @@ import { IBufferAttribute } from "./IBufferAttribute";
 
 import { MeshProxy } from "../core/MeshProxy";
 import { FaceProxy } from "../core/FaceProxy";
-import { XMath } from "../math/XMath";
+import { TMath } from "../math/TMath";
 import { Vector3 } from "../math/Vector3";
 import { TMap } from "../util/TMap";
 
 export class ThreeMesh extends MeshProxy {
   private mesh: IMesh;
   private verticesMap: TMap = new TMap();
+  
   public uvsAndColorUpdate: boolean = false;
 
   public setMesh(mesh: any): void {
     this.mesh = <IMesh>mesh;
-    this.setPosition();
+    this.setVertices();
     this.setFaces();
     this.mergeVertices();
     this.mergeFaces();
   }
 
-  private setPosition(): void {
+  private setVertices(): void {
     let position = this.getAttr("position");
+
     for (let i: number = 0; i < position.count; i++) {
       let vector: ThreeVertex = new ThreeVertex();
       let vec = new Vector3().fromBufferAttribute(position, i);
@@ -34,6 +36,7 @@ export class ThreeMesh extends MeshProxy {
   private setFaces(): void {
     let index = this.getAttr("index");
     let position = this.getAttr("position");
+
     if (index !== null) {
       for (let i: number = 0; i < index.count; i += 3) {
         let face: FaceProxy = new FaceProxy();
@@ -69,7 +72,7 @@ export class ThreeMesh extends MeshProxy {
 
     for (let i = 0; i < this.vertices.length; i++) {
       let v = this.vertices[i];
-      let xyz = XMath.mappedKey(v);
+      let xyz = TMath.mappedKey(v);
 
       if (!tmap.includeByValue(xyz)) {
         let index = unique.length;
@@ -90,17 +93,19 @@ export class ThreeMesh extends MeshProxy {
 
     for (let i = 0, il = this.faces.length; i < il; i++) {
       let face = this.faces[i];
-      let a = XMath.mappedKey(face.a);
-      let b = XMath.mappedKey(face.b);
-      let c = XMath.mappedKey(face.c);
+      let a = TMath.mappedKey(face.a);
+      let b = TMath.mappedKey(face.b);
+      let c = TMath.mappedKey(face.c);
+
       let index1 = this.verticesMap.getToByValue(a);
       let index2 = this.verticesMap.getToByValue(b);
       let index3 = this.verticesMap.getToByValue(c);
+
       face.a = this.vertices[index1];
       face.b = this.vertices[index2];
       face.c = this.vertices[index3];
-      let indices = [index1, index2, index3];
 
+      let indices = [index1, index2, index3];
       for (let n = 0; n < 3; n++) {
         if (indices[n] === indices[(n + 1) % 3]) {
           faceIndicesToRemove.push(i);
@@ -157,6 +162,7 @@ export class ThreeMesh extends MeshProxy {
         position.setZ(index, v.z);
       }
     }
+    
     position.needsUpdate = true;
   }
 

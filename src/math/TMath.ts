@@ -1,4 +1,4 @@
-export class XMath {
+export class TMath {
   public static PI: number = 3.1415;
 
   public static normalize(start: number, end: number, val: number): number {
@@ -8,7 +8,7 @@ export class XMath {
     if (range == 0) {
       normal = 1;
     } else {
-      normal = XMath.trim(0, 1, (val - start) / end);
+      normal = TMath.trim(0, 1, (val - start) / end);
     }
 
     return normal;

@@ -1,6 +1,6 @@
+import { Vector3 } from "../math/Vector3";
 import { VertexProxy } from "./VertexProxy";
 import { ModConstant } from "../util/ModConstant";
-import { Vector3 } from "../math/Vector3";
 
 export class MeshProxy {
   protected vertices: any[];
@@ -22,9 +22,9 @@ export class MeshProxy {
   protected _height: number;
   protected _depth: number;
 
-  public uvsAndColorUpdate: boolean = false;
   public boundUpdate: boolean = false;
   public indexUpdate: boolean = false;
+  public uvsAndColorUpdate: boolean = false;
 
   constructor() {
     this.vertices = [];

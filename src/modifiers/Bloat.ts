@@ -1,6 +1,6 @@
-﻿import { IModifier } from "../IModifier";
-import { Vector3 } from "../math/Vector3";
+﻿import { Vector3 } from "../math/Vector3";
 import { Modifier } from "../core/Modifier";
+import { IModifier } from "../core/IModifier";
 import { VertexProxy } from "../core/VertexProxy";
 
 export class Bloat extends Modifier implements IModifier {

@@ -89,7 +89,7 @@ export class Matrix {
     a[1] = a0 * b[1] + a1 * b[3];
     a[2] = a2 * b[0] + a3 * b[2];
     a[3] = a2 * b[1] + a3 * b[3];
-    
+
     return m1;
   }
 }

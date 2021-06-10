@@ -1,10 +1,8 @@
-import { IModifier } from "../IModifier";
-
 import { Matrix4 } from "../math/Matrix4";
 import { Vector3 } from "../math/Vector3";
-
-import { MeshProxy } from "../core/MeshProxy";
 import { Modifier } from "../core/Modifier";
+import { MeshProxy } from "../core/MeshProxy";
+import { IModifier } from "../core/IModifier";
 import { VertexProxy } from "../core/VertexProxy";
 
 export class Wheel extends Modifier implements IModifier {

@@ -1,4 +1,4 @@
-import { XMath } from "./XMath";
+import { TMath } from "./TMath";
 import { Range } from "./Range";
 
 export class Value {
@@ -19,7 +19,7 @@ export class Value {
   }
 
   public get normalized(): number {
-    return XMath.normalize(this._range.start, this._range.end, this._value);
+    return TMath.normalize(this._range.start, this._range.end, this._value);
   }
 
   public get range(): Range {
@@ -39,12 +39,12 @@ export class Value {
   }
 
   public setRange(nr: Range, interpolateValue: boolean = false): void {
-    if (interpolateValue) this._value = XMath.toRange(nr.start, nr.end, this.normalized);
+    if (interpolateValue) this._value = TMath.toRange(nr.start, nr.end, this.normalized);
     this._range = nr;
   }
 
   public trim(): void {
-    this._value = XMath.trim(this._range.start, this._range.end, this._value);
+    this._value = TMath.trim(this._range.start, this._range.end, this._value);
   }
 
   public inRange(r: Range = null): boolean {
